@@ -11,7 +11,7 @@ from google.colab import drive
 drive.mount('/content/drive')
 
 
-pip install streamlit pandas scikit-learn
+
 
 import streamlit as st
 import pandas as pd
