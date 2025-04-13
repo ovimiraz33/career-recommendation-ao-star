@@ -12,13 +12,14 @@ drive.mount('/content/drive')
 
 !pip install streamlit
 
+pip install streamlit pandas scikit-learn
+
 import streamlit as st
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.preprocessing import LabelEncoder
 
 # Load dataset
-# Updated path to include the full path to the file.
 df = pd.read_csv('/content/drive/MyDrive/AI LaB/Lab Project/career_ao_star_dataset.csv')
 
 # Encode categorical columns
