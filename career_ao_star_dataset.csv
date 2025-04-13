@@ -1,0 +1,8 @@
+Group,Math_Score,Creativity,Tech_Interest,Recommended_Career
+Science,High,Low,Yes,Engineer
+Science,Medium,High,Yes,Doctor
+Commerce,Low,Medium,Yes,Banker
+Humanities,Low,High,No,Artist
+Science,High,Medium,No,Programmer
+Commerce,Medium,Low,No,Banker
+Humanities,High,High,No,Writer
