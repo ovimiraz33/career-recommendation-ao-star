@@ -11,10 +11,11 @@ import streamlit as st
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.preprocessing import LabelEncoder
+import matplotlib.pyplot as plt
+import networkx as nx
 
-# Load dataset
+# Load dataset from local directory
 df = pd.read_csv('career_ao_star_dataset.csv')
-
 
 # Encode categorical columns
 label_encoders = {}
@@ -36,26 +37,52 @@ def a_star_search(education, skills, interest):
         "Writer": (education == "Humanities" and interest == "Arts" and skills == "High"),
     }
 
-    # Find the best career based on the score
+    # Calculate scores for each career
     scores = {career: score for career, score in career_scores.items()}
-    best_career = max(scores, key=scores.get)
+    
+    # Visualize career scores as a bar graph
+    careers = list(scores.keys())
+    score_values = list(scores.values())
+    
+    # Plot the bar chart using matplotlib
+    plt.bar(careers, score_values, color='skyblue')
+    plt.xlabel('Careers')
+    plt.ylabel('Scores')
+    plt.title('Career Recommendation Scores')
+    st.pyplot(plt)  # Display the chart in Streamlit
 
+    best_career = max(scores, key=scores.get)
     return best_career
+
+# Graph visualization using networkx
+def visualize_graph():
+    # Create a graph using networkx
+    G = nx.Graph()  # Undirected graph
+    G.add_edges_from([(1, 2), (2, 3), (3, 4), (4, 1), (1, 3)])
+    
+    # Create a layout for the graph
+    pos = nx.spring_layout(G)
+    
+    # Draw the graph
+    nx.draw(G, pos, with_labels=True, node_color='lightblue', node_size=3000, font_size=15, font_weight='bold')
+    plt.title('Career Recommendation Process - Graph Visualization')
+    st.pyplot(plt)  # Display the graph in Streamlit
 
 # Streamlit interface
 def career_advisor():
     st.title("Career Recommendation - A* Search")
-
-    # Input fields
+    
+    # Input fields for user
     education = st.selectbox('Select Education Level:', ['Science', 'Commerce', 'Humanities'])
     skills = st.selectbox('Select Skills Level:', ['High', 'Medium', 'Low'])
     interest = st.selectbox('Select Area of Interest:', ['Technology', 'Finance', 'Arts'])
-
-    # Make a recommendation
+    
+    # Display recommended career
     recommended_career = a_star_search(education, skills, interest)
-
-    # Display the recommended career
     st.write(f"🎯 Recommended Career: {recommended_career}")
+
+    # Show the graph visualization
+    visualize_graph()
 
 if __name__ == "__main__":
     career_advisor()
